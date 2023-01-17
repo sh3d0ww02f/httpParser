@@ -84,8 +84,15 @@ void HttpParser::show(){
 }
 
 std::string HttpParser::operator[](std::string str){
-    auto it = http.find(format_key(str));
-    return it != http.end() ? it->second : "";
+    std::string HttpParser::operator[](std::string str) {
+    for (auto it = http.cbegin(); it != http.cend(); ++it) {
+        if (it->first.find(str) != std::string::npos) {
+            return it->second;
+        }
+    }
+    return "";
+    
+}
 }
 
 HttpParser::format_key(std::string &str){
